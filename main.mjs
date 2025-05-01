@@ -12,10 +12,16 @@ console.log('%c main.mjs',
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the constants & functions required from fb_io module
-import { fb_initialise }
+import { fb_initialise, fb_authenticate }
     from './fb_io.mjs';
     window.fb_initialise   = fb_initialise;
- 
+    window.fb_authenticate = fb_authenticate;
+    
+import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getDatabase }
+    from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
 /**************************************************************/
 // index.html main code
 /**************************************************************/
