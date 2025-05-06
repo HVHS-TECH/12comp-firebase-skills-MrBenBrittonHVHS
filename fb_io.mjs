@@ -18,10 +18,9 @@ console.log('%c fb_io.mjs',
     
 import { initializeApp }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase }
+import { getDatabase, set, ref}
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup }
-
+import { getAuth, GoogleAuthProvider, signInWithPopup }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 //Variables
@@ -31,7 +30,7 @@ import { getDatabase }
 // List all the functions called by code or html outside of this module
 /**************************************************************/
 export { 
-    fb_initialise,fb_authenticate };
+    fb_initialise,fb_authenticate, set, ref};
 
 function fb_initialise() {
     console.log('%c fb_initialise(): ', 'color: ' + COL_C + '; background-color: ' + COL_B + ';');
@@ -55,6 +54,7 @@ function fb_initialise() {
   console.log(FB_APP);
   const FB_DATABASE = getDatabase(FB_APP);
   console.log(FB_DATABASE);
+  document.getElementById("p_fbInitialise").innerHTML= "Initialised";
 
 }
 
@@ -69,7 +69,7 @@ PROVIDER.setCustomParameters({
     });
     signInWithPopup(AUTH, PROVIDER).then((result) => {
         console.log("Authenticated sucessfully!")
-    })
+        })
     .catch((error) => {
         console.log(error)
         });
