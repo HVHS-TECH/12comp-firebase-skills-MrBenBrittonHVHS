@@ -191,16 +191,13 @@ export function fb_sortedRead() {
     // Add your implementation here
     var sortKey = "HighScore";
     const dbReference = query(ref(fb_gamedb, "Games/Pong/Score"), orderByChild(sortKey), limitToFirst(3));
-    get(dbReference).then((snapshot) => {
-        var fb_data = snapshot.val();
-        if (fb_data != null) {
-            console.log(fb_data)
-        } else {
-            console.log("Read empty");
-        }
-    }).catch((error) => {
-        console.log(error);
-    });
+    get(dbReference).then((allScoreDataSnapshot) => {
+        allScoreDataSnapshot.forEach(function (userScoreSnapshot) {
+            var obj = userScoreSnapshot.val();
+            console.log(obj);
+        });
+});
+    
 }
 
 export function fb_listenForChanges() {
