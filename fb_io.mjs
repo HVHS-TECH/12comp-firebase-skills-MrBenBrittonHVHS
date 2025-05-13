@@ -12,7 +12,8 @@ console.log('%c fb_io.mjs',
     'color: blue; background-color: white;');
 
 var fb_gamedb;
-
+var userName;
+var UID;
 /**************************************************************/
 // Import all external constants & functions required
 /**************************************************************/
@@ -44,7 +45,8 @@ export {
     fb_listenForChanges,
     fb_deleteRecord,
     fb_rebuild, // Add fb_rebuild to the export list
-    fb_wreakHavock
+    fb_wreakHavock,
+    fb_writeScore
 };
 
 function fb_initialise() {
@@ -77,7 +79,7 @@ function fb_initialise() {
     console.log(FB_APP);
     fb_gamedb = getDatabase(FB_APP);
     console.log(fb_gamedb);
-    document.getElementById("p_fbInitialise").innerHTML = "Initialised";
+    //document.getElementById("p_fbInitialise").innerHTML = "Initialised";
 
 }
 
@@ -92,8 +94,10 @@ function fb_authenticate() {
     // });
     signInWithPopup(AUTH, PROVIDER).then((result) => {
         console.log("Authenticated sucessfully!");
-        console.log(result.user.displayName);
-        document.getElementById("p_fbAuthenticate").innerHTML = result.user.displayName;
+        console.log(result.user);
+        //document.getElementById("p_fbAuthenticate").innerHTML = result.user.displayName;
+        userName = result.user.displayName;
+        UID = result.user.uid;
 
     })
         .catch((error) => {
@@ -221,7 +225,20 @@ function fb_authenticate() {
     console.log("Deleting a record...");
     // Add your implementation here
 }
+ function fb_writeScore(score) {
+    console.log("writing score...");
+    console.log(userName, UID, score)
+    // Add your implementation here
+        const dbReference = ref(fb_gamedb, "Games/GeoDash/Score/"+UID);
 
+    var data = { Name: userName, score: score };
+
+    update(dbReference, data).then(() => {
+        console.log("Write success");
+    }).catch((error) => {
+        console.log("Write error");
+    });
+}
  function fb_rebuild() {
     console.log("rebuilding a record...");
     // Add your implementation here
