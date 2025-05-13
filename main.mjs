@@ -23,8 +23,11 @@ import {
     fb_updateRecord,
     fb_sortedRead,
     fb_listenForChanges,
-    fb_deleteRecord
+    fb_deleteRecord,
+    fb_rebuild, // Import fb_rebuild
+    fb_wreakHavock
 } from './fb_io.mjs';
+
 // Attach functions to the global window object
 window.fb_initialise = fb_initialise;
 window.fb_authenticate = fb_authenticate;
@@ -37,6 +40,8 @@ window.fb_updateRecord = fb_updateRecord;
 window.fb_sortedRead = fb_sortedRead;
 window.fb_listenForChanges = fb_listenForChanges;
 window.fb_deleteRecord = fb_deleteRecord;
+window.fb_rebuild = fb_rebuild; // Attach fb_rebuild to the window object
+window.fb_wreakHavock = fb_wreakHavock;
   
 import { initializeApp }
     from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";

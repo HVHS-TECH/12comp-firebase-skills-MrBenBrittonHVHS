@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>12COMP firebase</title>
     <meta charset="UTF-8">
@@ -16,6 +17,7 @@
 <!--*************************************************************
   BODY
 **************************************************************-->
+
 <body>
     <header class="container">
         <h1>12COMP Firebase Realtime Database Skills</h1>
@@ -28,21 +30,28 @@
                 <button onclick="fb_authenticate()">t04: authenticate</button>
                 <button onclick="fb_detectLoginChange()">t05: detect login change</button>
                 <button onclick="fb_logout()">t06: logout</button>
+
             </div>
-    
+
             <div class="column">
                 <button onclick="fb_writeRecord()">t07: write record</button>
                 <button onclick="fb_readRecord()">t08: read record</button>
                 <button onclick="fb_readAll()">t09: read all</button>
                 <button onclick="fb_updateRecord()">t10: update record</button>
+                <button onclick="fb_wreakHavock()" style="background-color: #ff4747;">Wreak havock</button>
+
             </div>
-    
+
             <div class="column">
                 <button onclick="fb_sortedRead()">t11: sorted read</button>
                 <!-- EXTENSIONS -->
                 <button onclick="fb_listenForChanges()">ext(a): listen for changes</button>
                 <button onclick="fb_deleteRecord()">ext(b): delete record</button>
+                <button onclick="fb_rebuild()">Rebuild test data</button> <!-- Add this button -->
+
             </div>
+
+
         </div>
     </section>
 
@@ -76,6 +85,7 @@
     <!-- Your JS files & main module ***************************-->
     <script type="module" src="./main.mjs"></script>
 </body>
+
 </html>
 <!--*************************************************************
   END OF INDEX.HTML

@@ -32,7 +32,19 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signO
 // List all the functions called by code or html outside of this module
 /**************************************************************/
 export {
-    fb_initialise, fb_authenticate
+    fb_initialise,
+    fb_authenticate,
+    fb_detectLoginChange,
+    fb_logout,
+    fb_writeRecord,
+    fb_readRecord,
+    fb_readAll,
+    fb_updateRecord,
+    fb_sortedRead,
+    fb_listenForChanges,
+    fb_deleteRecord,
+    fb_rebuild, // Add fb_rebuild to the export list
+    fb_wreakHavock
 };
 
 function fb_initialise() {
@@ -90,7 +102,7 @@ function fb_authenticate() {
 }
 // filepath: /workspaces/12comp-firebase-skills-MrBenBrittonHVHS/main.mjs
 
-export function fb_detectLoginChange() {
+ function fb_detectLoginChange() {
     console.log("Detecting login changes...");
     const AUTH = getAuth();
 
@@ -106,7 +118,7 @@ export function fb_detectLoginChange() {
     // Add your implementation here
 }
 
-export function fb_logout() {
+ function fb_logout() {
     console.log("Logging out...");
     // Add your implementation here
     const AUTH = getAuth();
@@ -119,7 +131,7 @@ export function fb_logout() {
         });
 }
 
-export function fb_writeRecord() {
+ function fb_writeRecord() {
     console.log("Writing a record...");
     // Add your implementation here
 
@@ -135,7 +147,7 @@ export function fb_writeRecord() {
     });
 }
 
-export function fb_readRecord() {
+ function fb_readRecord() {
     console.log("Reading a record...");
     // Add your implementation here
     const dbReference = ref(fb_gamedb, "Games/Pong/Score/UID/Name");
@@ -153,7 +165,7 @@ export function fb_readRecord() {
     });
 }
 
-export function fb_readAll() {
+ function fb_readAll() {
     console.log("Reading all records...");
     // Add your implementation here
     const dbReference = ref(fb_gamedb, "Games/Pong/Score/UID");
@@ -171,7 +183,7 @@ export function fb_readAll() {
     });
 }
 
-export function fb_updateRecord() {
+ function fb_updateRecord() {
     console.log("Updating a record...");
     // Add your implementation here
     const dbReference = ref(fb_gamedb, "Games/Pong/Score/UID");
@@ -182,11 +194,11 @@ export function fb_updateRecord() {
         console.log("Write success");
     }).catch((error) => {
         console.log("Write error");
-        console.log(error);
+        v
     });
 }
 
-export function fb_sortedRead() {
+ function fb_sortedRead() {
     console.log("Performing a sorted read...");
     // Add your implementation here
     var sortKey = "HighScore";
@@ -196,18 +208,104 @@ export function fb_sortedRead() {
             var obj = userScoreSnapshot.val();
             console.log(obj);
         });
-});
-    
+    });
+
 }
 
-export function fb_listenForChanges() {
+ function fb_listenForChanges() {
     console.log("Listening for changes...");
     // Add your implementation here
 }
 
-export function fb_deleteRecord() {
+ function fb_deleteRecord() {
     console.log("Deleting a record...");
     // Add your implementation here
+}
+
+ function fb_rebuild() {
+    console.log("rebuilding a record...");
+    // Add your implementation here
+    var data = {
+  "Games": {
+    "Pong": {
+      "Score": {
+        "UID": {
+          "HighScore": 3,
+          "Name": "Bob"
+        },
+        "UID2": {
+          "HighScore": 1,
+          "Name": "Bruno"
+        },
+        "UID3": {
+          "HighScore": 100,
+          "Name": "Bess"
+        }
+      }
+    }
+  }
+}
+    const dbReference = ref(fb_gamedb, "/");
+
+    set(dbReference, data).then(() => {
+        console.log("Write success");
+    }).catch((error) => {
+        console.log("Write error");
+        console.log(error);
+    });
+}
+
+ function fb_wreakHavock() {
+    console.log("Wreaking havock...");
+    // Add your implementation here
+
+    const FB_CONFIG = {
+        apiKey: "AIzaSyAC9lbREKwJJ95pZUJ7Wy3hI_QfivE2a34",
+        authDomain: "comp-firebaseskills.firebaseapp.com",
+        databaseURL: "https://comp-firebaseskills-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "comp-firebaseskills",
+        storageBucket: "comp-firebaseskills.firebasestorage.app",
+        messagingSenderId: "634491601796",
+        appId: "1:634491601796:web:1c48be8af741f25bd353d1"
+    };
+    // Initialize Firebase
+    console.log("Connecting to "+FB_CONFIG.projectId)
+    var FB_APP = initializeApp(FB_CONFIG);
+    //console.log(FB_APP);
+    fb_gamedb = getDatabase(FB_APP);
+    //console.log(fb_gamedb);
+    document.getElementById("p_fbInitialise").innerHTML = FB_CONFIG.projectId;
+
+    // Read the DB
+    
+    console.log("Reading all records...");
+    // Add your implementation here
+    const dbReference = ref(fb_gamedb, "/");
+
+    get(dbReference).then((snapshot) => {
+        var fb_data = snapshot.val();
+        if (fb_data != null) {
+            console.log("Read Success!");
+            console.log(fb_data)
+        } else {
+            console.log("Read empty");
+        }
+    }).catch((error) => {
+        console.log(error);
+    });
+
+    //Delete the DB
+    /*
+    const dbReference = ref(fb_gamedb, "/");
+    var data = { Message: "You've been pwnd!" }
+
+    set(dbReference, data).then(() => {
+        console.log("Write success");
+    }).catch((error) => {
+        console.log("Write error"); 
+        console.log(error);
+    });
+*/
 }
 
 /**************************************************************/
